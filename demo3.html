@@ -83,6 +83,7 @@
 			var this_posY = e.targetTouches[0].clientY;
 			var sHeight = e.currentTarget.scrollTop;
 			var thisHeight = sHeight + 400;
+			$debug.innerHTML = this_posY;
 			if(thisHeight>=realHeight && posY>this_posY){
 				e.preventDefault();
 			}else if(sHeight==0 && posY<this_posY){
