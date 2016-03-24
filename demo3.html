@@ -70,32 +70,29 @@
 		var $debug = document.getElementById("debug");
 		var posY = 0;
 		var realHeight = $group.scrollHeight;
-		// $box.ontouchmove = function(e){
-		// 	e = e||window.event;
-		// 	e.preventDefault();
-		// }
-		// $group.addEventListener('touchstart',function(e){
-		// 	posY = e.targetTouches[0].clientY;
-		// }) 
-		// $group.addEventListener('touchmove', function(e){
-		// 	e = e||window.event;
-		// 	var this_posY = e.targetTouches[0].clientY;
-		// 	var sHeight = e.currentTarget.scrollTop;
-		// 	var thisHeight = sHeight + 400;
-		// 	if(thisHeight>=realHeight && posY>this_posY){
-		// 		e.preventDefault();
-		// 	}else if(sHeight==0 && posY<this_posY){
-		// 		e.preventDefault();
-		// 	}
-		// 	posY = this_posY;
-		// 	e.stopPropagation();
-		// });
-
-		document.addEventListener("touchmove",function(e){
+		$box.ontouchmove = function(e){
+			e = e||window.event;
+			e.preventDefault();
+		}
+		$group.addEventListener('touchstart',function(e){
 			e = e||window.event;
 			posY = e.targetTouches[0].clientY;
-			$debug.innerHTML = posY;
+			e.preventDefault();
+		}) 
+		$group.addEventListener('touchmove', function(e){
+			e = e||window.event;
+			var this_posY = e.targetTouches[0].clientY;
+			var sHeight = e.currentTarget.scrollTop;
+			var thisHeight = sHeight + 400;
+			if(thisHeight>=realHeight && posY>this_posY){
+				e.preventDefault();
+			}else if(sHeight==0 && posY<this_posY){
+				e.preventDefault();
+			}
+			posY = this_posY;
+			e.stopPropagation();
 		});
+
 	</script>
 </body>
 </html>
