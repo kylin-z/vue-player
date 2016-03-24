@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo</title>
+	<style>
+		body{
+			font-family: '微软雅黑';
+			margin: 0;
+			padding: 0;
+		}
+		.title{
+			width: 100%;
+			height: 100px;
+			color: grey;
+			text-align: center;
+			font-size: 30px;
+			line-height: 100px;
+		}
+		.button_group{
+			position: relative;
+			max-height: 400px;
+			overflow-y: scroll;
+			top: 1600px;
+		}
+		button{
+			height: 80px;
+			width: 100%;
+			font-size: 30px;
+			background-color: #fff;
+			bottom: 1px solid #e0e0e0;
+		}
+		.box{
+			height: 8000px;
+			width: 100%;
+			background-color: rgba(0,0,0,0.8)
+		}
+	</style>
+</head>
+<body>
+	<div class="box" id="box">
+		<div class="title">选择项目</div>
+		<div class="button_group" id="group">
+			<button>看一看</button>
+			<button>瞧一瞧</button>
+			<button>试一试</button>
+			<button>哈哈哈哈</button>
+			<button>啦啦啦啦</button>
+			<button>呵呵呵呵呵呵呵</button>
+			<button>看一看</button>
+			<button>瞧一瞧</button>
+			<button>试一试</button>
+			<button>哈哈哈哈</button>
+			<button>啦啦啦啦</button>
+			<button>呵呵呵呵呵呵呵</button>
+		</div>
+	</div>
+	<script>
+	var u = navigator.userAgent;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+		var $box = document.getElementById("box");
+		var $group = document.getElementById("group");
+		var posY = 0;
+		var realHeight = $group.scrollHeight;
+		$box.ontouchmove = function(e){
+			e = e||window.event;
+			e.preventDefault();
+		}
+		$group.addEventListener('touchstart',function(e){
+			posY = e.targetTouches[0].clientY;
+		}) 
+		$group.addEventListener('touchmove', function(e){
+			e = e||window.event;
+			if(isAndroid){
+				androidTouchControl();
+				return;
+			}
+			var this_posY = e.targetTouches[0].clientY;
+			var sHeight = e.currentTarget.scrollTop;
+			var thisHeight = sHeight + 400;
+			if(thisHeight>=realHeight && posY>this_posY){
+				e.preventDefault();
+			}else if(sHeight==0 && posY<this_posY){
+				e.preventDefault();
+			}
+			posY = this_posY;
+			e.stopPropagation();
+		});
+	</script>
+</body>
+</html>
