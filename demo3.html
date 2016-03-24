@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>demo</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 	<style>
 		body{
 			font-family: '微软雅黑';
@@ -87,6 +88,24 @@
 			posY = this_posY;
 			e.stopPropagation();
 		});
+		var moveLoop = null;
+		$group.addEventListener('touchend', function(e){
+			e = e||window.event;
+			window.clearTimeout(moveLoop);
+		});
+		function androidTouchControl(e){
+			var this_posY = e.targetTouches[0].clientY;
+			var sHeight = $group.scrollTop;
+			var thisHeight = sHeight + 400;
+			if(thisHeight>=realHeight && posY>this_posY){
+				e.preventDefault();
+			}else if(sHeight==0 && posY<this_posY){
+				e.preventDefault();
+			}
+			posY = this_posY;
+			e.stopPropagation();
+			moveLoop = setTimeout(androidTouchControl(e), 500);
+		}
 	</script>
 </body>
 </html>
