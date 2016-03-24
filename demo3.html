@@ -77,7 +77,6 @@
 		$group.addEventListener('touchstart',function(e){
 			e = e||window.event;
 			posY = e.targetTouches[0].clientY;
-			e.preventDefault();
 		}) 
 		$group.addEventListener('touchmove', function(e){
 			e = e||window.event;
@@ -92,7 +91,10 @@
 			posY = this_posY;
 			e.stopPropagation();
 		});
-
+		$group.addEventListener('touchcancel',function(e){
+			e = e||window.event;
+			e.preventDefault();
+		}) 
 	</script>
 </body>
 </html>
