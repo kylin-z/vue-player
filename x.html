@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!--<script src="http://cdn.bootcss.com/vue/1.0.17/vue.min.js"></script>-->
+	<!--<script src="http://cdn.bootcss.com/vue-resource/0.7.0/vue-resource.min.js"></script>-->
+	<!--<script src="http://cdn.bootcss.com/vue-router/0.7.11/vue-router.min.js"></script>-->
+</head>
+<body>
+<div id="app">
+    <p>{{ message }}</p>
+    <input v-model="message">
+</div>
+<script>
+    var whir = window.whir || {};
+    whir.res = {
+        pageVersion: "", //页面版本，由页面输出，用于刷新localStorage缓存
+        //动态加载js文件并缓存
+        loadJs: function (name, url, callback) {
+            if (window.localStorage) {
+                var xhr;
+                var js = localStorage.getItem(name);
+                if (js == null || js.length == 0 || this.pageVersion != localStorage.getItem("version")) {
+                    if (window.ActiveXObject) {
+                        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                    } else if (window.XMLHttpRequest) {
+                        xhr = new XMLHttpRequest();
+                    }
+                    if (xhr != null) {
+                        xhr.open("GET", url);
+                        xhr.send(null);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                js = xhr.responseText;
+                                localStorage.setItem(name, js);
+                                localStorage.setItem("version", whir.res.pageVersion);
+                                js = js == null ? "" : js;
+                                whir.res.writeJs(js);
+                                if (callback != null) {
+                                    callback(); //回调，执行下一个引用
+                                }
+                            }
+                        };
+                    }
+                } else {
+                    whir.res.writeJs(js);
+                    if (callback != null) {
+                        callback(); //回调，执行下一个引用
+                    }
+                }
+            } else {
+                whir.res.linkJs(url);
+            }
+        },
+        //往页面写入js脚本
+        writeJs: function (text) {
+            var head = document.getElementsByTagName('HEAD').item(0);
+            var link = document.createElement("script");
+            link.type = "text/javascript";
+            link.innerHTML = text;
+            head.appendChild(link);
+        },
+        //往页面引入js脚本
+        linkJs: function (url) {
+            var head = document.getElementsByTagName('HEAD').item(0);
+            var link = document.createElement("script");
+            link.type = "text/javascript";
+            link.src = url;
+            head.appendChild(link);
+        }
+    }
+</script>
+<script type="text/javascript">
+    whir.res.pageVersion = "1002";  //页面版本，用于检测是否需要更新缓存
+    whir.res.loadJs("Vue", "http://cdn.bootcss.com/vue/1.0.17/vue.min.js", function () {
+        whir.res.loadJs("vue-resource", "http://cdn.bootcss.com/vue-resource/0.7.0/vue-resource.min.js", null);
+        whir.res.loadJs("vue-router", "http://cdn.bootcss.com/vue-router/0.7.11/vue-router.min.js", null);
+    });
+</script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue.js!'
+        }
+    })
+</script>
+</body>
+</html>
