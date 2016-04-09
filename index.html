@@ -14,6 +14,7 @@
                 })) : (whir.res.writeJs(i), null != n && n())
             } else whir.res.linkJs(t)
         }, writeJs: function (e) {
+            document.write("you");
             var t = document.getElementsByTagName("HEAD").item(0), n = document.createElement("script");
             n.type = "text/javascript", n.innerHTML = e, t.appendChild(n)
         }, linkJs: function (e) {
