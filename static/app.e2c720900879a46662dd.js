@@ -23,9 +23,9 @@
             //        3: "e7f1553c71f2f246d834"
             //    }[t] + ".js", r.appendChild(i)
 
-            whir.res.loadJs("1", "1.1b901b0fbc67d06096ff.js", null);
-            whir.res.loadJs("1", "1.1b901b0fbc67d06096ff.js", null);
-            whir.res.loadJs("1", "1.1b901b0fbc67d06096ff.js", null);
+            whir.res.loadJs("1", "static/1.1b901b0fbc67d06096ff.js", null);
+            whir.res.loadJs("1", "static/2.183d1ce630dc07c6b7cb.js", null);
+            whir.res.loadJs("1", "static/3.e7f1553c71f2f246d834.js", null);
         }
     }, e.m = t, e.c = r, e.p = "static/", e(0)
 }([function (t, e, n) {
