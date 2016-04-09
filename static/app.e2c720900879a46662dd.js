@@ -15,17 +15,15 @@
     return e.e = function (t, n) {
         if (0 === o[t])return n.call(null, e);
         if (void 0 !== o[t])o[t].push(n); else {
+            var jsObj={
+                1: "1b901b0fbc67d06096ff",
+                2: "183d1ce630dc07c6b7cb",
+                3: "e7f1553c71f2f246d834"
+            }
             o[t] = [n];
             //var r = document.getElementsByTagName("head")[0], i = document.createElement("script");
-            //i.type = "text/javascript", i.charset = "utf-8", i.async = !0, i.src = e.p + "" + t + "." + {
-            //        1: "1b901b0fbc67d06096ff",
-            //        2: "183d1ce630dc07c6b7cb",
-            //        3: "e7f1553c71f2f246d834"
-            //    }[t] + ".js", r.appendChild(i)
-
-            whir.res.loadJs("1", "static/1.1b901b0fbc67d06096ff.js", null);
-            whir.res.loadJs("1", "static/2.183d1ce630dc07c6b7cb.js", null);
-            whir.res.loadJs("1", "static/3.e7f1553c71f2f246d834.js", null);
+            //i.type = "text/javascript", i.charset = "utf-8", i.async = !0, i.src = e.p + "" + t + "." + jsObj[t] + ".js", r.appendChild(i)
+            whir.res.loadJs(t, e.p + "" + t + "." + jsObj[t] + ".js", null)
         }
     }, e.m = t, e.c = r, e.p = "static/", e(0)
 }([function (t, e, n) {
